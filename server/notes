@@ -1,0 +1,9 @@
+git push heroku master
+https://stormy-hamlet-13424.herokuapp.com:11054
+
+npm i passport --save
+npm i passport-google-oauth20 --save
+npm i cookie-session --save
+
+To check if any component is rerendered or not.
+npm i --save-dev why-did-you-update
