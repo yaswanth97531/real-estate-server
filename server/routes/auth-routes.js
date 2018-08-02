@@ -4,6 +4,7 @@ var { mongoose } = require("./../db/mongoose");
 var { User } = require("./../models/user");
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
+const _ = require("lodash");
 
 // auth login 
 
@@ -31,6 +32,18 @@ router.post('/login', (req, res) => {
             message: 'Successfully logged in',
             userId: user._id
         });
+    });
+});
+
+router.post('/signup', (req, res) => {
+    console.log('In server signup');
+    var body = _.pick(req.body, ['firstName','lastName','email', 'password']);
+    var user = new User(body);
+
+    user.save().then(() => user.generateAuthToken()).then((token) => {
+        res.header('x-auth', token).send(user);
+    }).catch((e) => {
+        res.status(400).send(e);
     });
 });
 
